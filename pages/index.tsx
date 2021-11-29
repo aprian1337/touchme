@@ -1,14 +1,15 @@
 import type { NextPage } from "next";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import Image from "next/image";
+import Container from "../components/Container";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
     <div>
       <Sidebar />
-      <Header />
-      <div className="container mx-auto" style={{ height: "80vh" }}>
+      <Header uri="home" />
+      <Container>
         <div className="flex h-full items-center flex-wrap">
           <div className="w-1/2">
             <h2 className="text-4xl font-fira-code w-full mb-5">
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
             </h2>
             <h2 className="text-8xl font-inter font-black w-full">
               <span className="text-gray-600">D</span>wiky
-              <span className="text-red-500">.</span>
+              <span className="text-red-500">.</span>👋👋
             </h2>
             <h2 className="text-4xl font-fira-code font-light">
               software engineer
@@ -27,14 +28,16 @@ const Home: NextPage = () => {
               sunt fuga explicabo! Iusto nihil minus rerum unde vitae obcaecati
               soluta dignissimos nisi.
             </p>
-            <button className="mt-5 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500">
-              Touch Me!
-            </button>
+            <Link href="/about-me" passHref>
+              <button className="mt-5 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500">
+                Know me more
+              </button>
+            </Link>
           </div>
           <div className="w-1/2 rounded z-20">
             <div className="text-center float-right">
               <img
-                src="/avatar.jpg"
+                src="/dummy.png"
                 style={{
                   borderRadius: "50%",
                   objectFit: "cover",
@@ -47,7 +50,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
