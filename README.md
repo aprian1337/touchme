@@ -30,7 +30,7 @@
 1. NextJS
 2. Hasura
 3. GraphQL
-4. Netlify
+4. Vercel
 5. React-Cookie
 6. Tailwind CSS
 7. Fontawesome
