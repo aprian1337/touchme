@@ -21,12 +21,12 @@
 </p>
 
 # Contents :
-- [Libraries What I Used](#libraries-what-i-used)
+- [Libraries / Tech What I Used](#libraries-what-i-used)
 - [How to Run?](#how-to-run-locally)
 - [Thanks to](#thanks-to-)
 
 
-# Libraries What I Used
+# Libraries / Tech What I Used
 1. NextJS
 2. Hasura
 3. GraphQL
@@ -34,6 +34,7 @@
 5. React-Cookie
 6. Tailwind CSS
 7. Fontawesome
+8. Typescript
 
 # How to Run Locally?
 1. Clone this repository first
