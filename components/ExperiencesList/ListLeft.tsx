@@ -1,14 +1,7 @@
 import React from "react";
+import { ExperiencesList } from "../../interfaces/Experiences";
 import ExperiencesText from "../ExperiencesText";
 import ListBullet from "./ListBullet";
-
-interface ExperiencesList {
-  role: string;
-  employeer: string;
-  description: string;
-  dateStart: String;
-  dateEnd: String;
-}
 
 export default function ListLeft(props: ExperiencesList) {
   return (

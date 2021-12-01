@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import ExperiencesList from "../ExperiencesList";
-import { DATA_COLUMN, GET_DATA } from "../../graphql/queries";
+import { DATA_COLUMN, QUERY_GET_DATA } from "../../graphql/queries";
 import Loading from "../Loading";
 
 export default function Experiences() {
-  const { loading, error, data } = useQuery(GET_DATA);
+  const { loading, error, data } = useQuery(QUERY_GET_DATA);
   return (
     <div className="flex flex-col md:grid grid-cols-9 mx-auto p-2 text-blue-50">
       {loading ? (

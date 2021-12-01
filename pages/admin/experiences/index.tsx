@@ -1,11 +1,24 @@
 import Navbar from "../../../components/Navbar";
 import Link from "next/link";
+import Container from "../../../components/Container";
+import { useQuery } from "@apollo/client";
+import { QUERY_GET_DATA } from "../../../graphql/queries";
+import Table from "../../../components/Table";
+import Loading from "../../../components/Loading";
+import { useEffect } from "react";
 
-export default function experiences() {
+export default function AdminExperiences() {
+  const { loading, error, data, refetch } = useQuery(QUERY_GET_DATA, {
+    notifyOnNetworkStatusChange: true,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto mt-12">
+      <Container>
         <div className="flex justify-end">
           <div className="inline-block">
             <h1 className="text-white bg-red-500 float-right">
@@ -19,34 +32,10 @@ export default function experiences() {
             </button>
           </div>
         </div>
-        <table className="table-fixed min-w-full border-collapse border border-black mt-12">
-          <thead>
-            <tr className="border border-black">
-              <th className="p-3">#</th>
-              <th className="p-3">Role</th>
-              <th className="p-3">Employeer</th>
-              <th className="p-3">Period</th>
-              <th className="p-3">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border border-black">
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-            </tr>
-            <tr className="border border-black">
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-              <td className="p-3">1</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div className="mt-10">
+          {loading ? <Loading /> : <Table data={data} />}
+        </div>
+      </Container>
     </div>
   );
 }

@@ -26,14 +26,19 @@ export default function ExperiencesList(props: ExperiencesList) {
     "November",
     "December",
   ];
-  const date = new Date(props.dateStart);
+  const dateStart = new Date(props.dateStart);
+
   const dateStartString = `${
-    monthNames[date.getMonth()]
-  } ${date.getFullYear()}`;
-  const dateEndString =
-    props.dateEnd != null
-      ? `${monthNames[date.getMonth()]} ${date.getFullYear()}`
-      : "Now";
+    monthNames[dateStart.getMonth()]
+  } ${dateStart.getFullYear()}`;
+  var dateEndString = "Now";
+  if (props.dateEnd != null) {
+    const dateEnd = new Date(props.dateEnd!);
+    dateEndString = `${
+      monthNames[dateEnd.getMonth()]
+    } ${dateEnd.getFullYear()}`;
+  }
+
   return (
     <>
       {props.isLeft ? (
