@@ -1,6 +1,7 @@
+import { useMutation } from "@apollo/client";
 import React from "react";
-import { DATA_COLUMN } from "../../graphql/queries";
-import { ExperiencesList } from "../../interfaces/Experiences";
+import { DATA_COLUMN, MUTATION_DELETE_DATA } from "../../graphql/queries";
+import Loading from "../Loading";
 import TableList from "../TableList";
 
 export default function Table(props: any) {
@@ -20,6 +21,7 @@ export default function Table(props: any) {
           {props.data?.touchme_experiences.map((item: DATA_COLUMN) => (
             <TableList
               key={item.id}
+              handleDelete={props.handleDelete}
               id={item.id}
               dateStart={item.period_start}
               description={item.desc}

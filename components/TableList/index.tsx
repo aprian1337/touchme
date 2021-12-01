@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Modal from "../Modal";
+import Loading from "../Loading";
 
 interface ExperiencesList {
   id: string;
@@ -8,6 +10,7 @@ interface ExperiencesList {
   description: string;
   dateStart: Date;
   dateEnd?: Date;
+  handleDelete: any;
 }
 export default function TableList(props: ExperiencesList) {
   const monthNames = [
@@ -25,6 +28,10 @@ export default function TableList(props: ExperiencesList) {
     "December",
   ];
   const dateStart = new Date(props.dateStart);
+  const [del, setDel] = useState({
+    id: "",
+    deleteModal: false,
+  });
 
   const dateStartString = `${
     monthNames[dateStart.getMonth()]
@@ -36,8 +43,35 @@ export default function TableList(props: ExperiencesList) {
       monthNames[dateEnd.getMonth()]
     } ${dateEnd.getFullYear()}`;
   }
+
+  const handleDelete = () => {
+    setDel({
+      id: props.id,
+      deleteModal: true,
+    });
+  };
+
+  const handleDeleteData = () => {
+    props.handleDelete(del.id);
+    clearDelState();
+  };
+
+  const handleCancelModal = () => {
+    clearDelState();
+  };
+
+  const clearDelState = () => {
+    setDel({
+      id: "",
+      deleteModal: false,
+    });
+  };
+
   return (
     <>
+      <div className={del.deleteModal ? "" : "hidden"}>
+        <Modal funcCancel={handleCancelModal} funcDelete={handleDeleteData} />
+      </div>
       <tr className="border-b border-gray-200 hover:bg-gray-100">
         <td className="py-3 px-6 text-left whitespace-nowrap">
           <span>{props.id}</span>
@@ -55,7 +89,7 @@ export default function TableList(props: ExperiencesList) {
         </td>
         <td className="py-3 px-6 text-left">
           <div className="flex item-start justify-start">
-            <Link href={`/admin/experiences/edit/${props.id}`}>
+            <Link href={`/admin/experiences/edit/${props.id}`} passHref>
               <div className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +106,10 @@ export default function TableList(props: ExperiencesList) {
                 </svg>
               </div>
             </Link>
-            <div className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
+            <div
+              className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+              onClick={handleDelete}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
