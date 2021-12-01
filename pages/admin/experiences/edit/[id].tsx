@@ -4,6 +4,7 @@ import Navbar from "../../../../components/Navbar";
 import Link from "next/link";
 import {
   MUTATION_UPDATE_DATA,
+  QUERY_GET_DATA,
   QUERY_GET_DATA_BY_UUID,
 } from "../../../../graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
@@ -40,8 +41,14 @@ export default function Edit(props: any) {
         period_start: form.periodStart,
         role: form.role,
       },
+      refetchQueries: [
+        {
+          query: QUERY_GET_DATA,
+        },
+      ],
+      fetchPolicy: "no-cache",
+      onCompleted: refetch,
     });
-    refetch();
   };
 
   useEffect(() => {
