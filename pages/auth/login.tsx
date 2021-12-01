@@ -37,10 +37,6 @@ export default function Login() {
         },
       },
     });
-  };
-
-  useEffect(() => {
-    AuthCheckAuthenticated(cookie);
     if (data?.touchme_users.length > 0) {
       AuthLogin(setCookie, signIn.username);
       Router.push("/admin/experiences");
@@ -51,7 +47,11 @@ export default function Login() {
         error: true,
       });
     }
-  }, [data]);
+  };
+
+  useEffect(() => {
+    AuthCheckAuthenticated(cookie);
+  }, []);
 
   return (
     <div
@@ -65,7 +65,7 @@ export default function Login() {
       {loading ? <Loading /> : ""}
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8">
         <div className="rounded-lg bg-white p-12">
-          <div className={!signIn.error ? "hidden" : ""}>
+          <div className={signIn.error ? "" : "hidden"}>
             <AlertError error="Masih gagal nih :(" />
           </div>
           <div className="max-w-md w-full">
