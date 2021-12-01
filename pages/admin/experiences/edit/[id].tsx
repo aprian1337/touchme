@@ -9,10 +9,13 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/dist/client/router";
 import Loading from "../../../../components/Loading";
+import { AuthCheckLogin } from "../../../../utils/Auth";
+import { useCookies } from "react-cookie";
 
 export default function Edit(props: any) {
   const router = useRouter();
   const { id } = router.query;
+  const [cookie] = useCookies(["user"]);
 
   const { loading, error, data, refetch } = useQuery(QUERY_GET_DATA_BY_UUID, {
     notifyOnNetworkStatusChange: true,
@@ -42,7 +45,7 @@ export default function Edit(props: any) {
   };
 
   useEffect(() => {
-    refetch();
+    AuthCheckLogin(cookie);
   }, []);
 
   return (
@@ -77,10 +80,6 @@ export default function Edit(props: any) {
               func={handleUpdate}
               desc={data?.touchme_experiences_by_pk.desc}
             />
-            // console.log(
-            //   data?.touchme_experiences_by_pk.periodEnd,
-            //   typeof data?.touchme_experiences_by_pk.periodEnd === "undefined"
-            // )
           )}
         </div>
       </div>

@@ -33,6 +33,16 @@ query MyQuery($id: uuid = "") {
   }
 }
 `
+
+export const QUERY_GET_USER_FOR_LOGIN = gql `
+query MyQuery($password: String_comparison_exp = {}, $username: String_comparison_exp = {}) {
+  touchme_users(where: {_and: {password: $password, username: $username}}) {
+    id
+  }
+}
+
+`
+
 export const MUTATION_INSERT_DATA = gql `
 mutation MyMutation($object: touchme_experiences_insert_input = {}) {
   insert_touchme_experiences_one(object: $object) {

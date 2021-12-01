@@ -2,14 +2,18 @@ import Navbar from "../../../components/Navbar";
 import Link from "next/link";
 import FormExperience from "../../../components/FormExperience";
 import { MUTATION_INSERT_DATA, QUERY_GET_DATA } from "../../../graphql/queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Loading from "../../../components/Loading";
+import { AuthCheckLogin } from "../../../utils/Auth";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 export default function Create() {
   const [
     insertData,
     { data: data, loading: loadingInsert, error: errorInsert },
   ] = useMutation(MUTATION_INSERT_DATA);
+  const [cookie] = useCookies(["user"]);
 
   const insert = (form: any) => {
     let periodEnd = form.isNow ? null : form.periodEnd;
@@ -30,6 +34,11 @@ export default function Create() {
       },
     });
   };
+
+  useEffect(() => {
+    AuthCheckLogin(cookie);
+  }, []);
+
   return (
     <div>
       <Navbar />

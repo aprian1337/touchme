@@ -6,11 +6,14 @@ import { MUTATION_DELETE_DATA, QUERY_GET_DATA } from "../../../graphql/queries";
 import Table from "../../../components/Table";
 import Loading from "../../../components/Loading";
 import { useEffect } from "react";
+import { AuthCheckLogin, AuthLogout } from "../../../utils/Auth";
+import { useCookies } from "react-cookie";
 
 export default function AdminExperiences() {
   const { loading, error, data, refetch } = useQuery(QUERY_GET_DATA, {
     notifyOnNetworkStatusChange: true,
   });
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
   const [
     deleteFunc,
@@ -29,12 +32,18 @@ export default function AdminExperiences() {
     });
   };
 
+  const handleLogout = () => {
+    AuthLogout(removeCookie);
+  };
+
   useEffect(() => {
+    AuthCheckLogin(cookie);
     refetch();
   }, []);
+
   return (
     <div>
-      <Navbar />
+      <Navbar handleLogout={handleLogout} />
       <Container>
         <div className="flex justify-end">
           <div className="inline-block">
