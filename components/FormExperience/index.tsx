@@ -1,6 +1,4 @@
-import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { QUERY_GET_DATA } from "../../graphql/queries";
 import { FormGroup } from "../../utils/FormComponent";
 
 const FormExperience = (props: any) => {
@@ -38,7 +36,7 @@ const FormExperience = (props: any) => {
         employeer: props.employeer,
         periodStart: props.periodStart,
         desc: props.desc,
-        isNow: props.isNow,
+        isNow: props.periodEnd == null,
         periodEnd: props.periodEnd,
       });
     }

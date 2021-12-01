@@ -48,3 +48,11 @@ mutation MyMutation($id: uuid = "", $role: String = "", $period_start: date = ""
   }
 }
 `
+
+export const MUTATION_DELETE_DATA = gql `
+mutation MyMutation($id: uuid = "") {
+  delete_touchme_experiences_by_pk(id: $id) {
+    id
+  }
+}
+`

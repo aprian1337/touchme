@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import FormExperience from "../../../../components/FormExperience";
 import Navbar from "../../../../components/Navbar";
 import Link from "next/link";
-import { QUERY_GET_DATA_BY_UUID } from "../../../../graphql/queries";
-import { useQuery } from "@apollo/client";
+import {
+  MUTATION_UPDATE_DATA,
+  QUERY_GET_DATA_BY_UUID,
+} from "../../../../graphql/queries";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/dist/client/router";
 import Loading from "../../../../components/Loading";
 
@@ -18,24 +21,24 @@ export default function Edit(props: any) {
     },
   });
 
-  const update = (form: any) => {
+  const [
+    updateData,
+    { data: dataUpdate, loading: loadingUpdate, error: errorUpdate },
+  ] = useMutation(MUTATION_UPDATE_DATA);
+
+  const handleUpdate = (form: any) => {
     let periodEnd = form.isNow ? null : form.periodEnd;
-    insertData({
+    updateData({
       variables: {
-        object: {
-          desc: form.desc,
-          employeer: form.employeer,
-          period_start: form.periodStart,
-          period_end: periodEnd,
-          role: form.role,
-        },
-        refetchQueries: [
-          {
-            query: QUERY_GET_DATA,
-          },
-        ],
+        id: id,
+        desc: form.desc,
+        employeer: form.employeer,
+        period_end: periodEnd,
+        period_start: form.periodStart,
+        role: form.role,
       },
     });
+    refetch();
   };
 
   useEffect(() => {
@@ -61,21 +64,23 @@ export default function Edit(props: any) {
           </div>
         </div>
         <div className="mt-5">
-          {console.log(data?.touchme_experiences_by_pk.periodEnd == null)}
-          {loading ? (
+          {errorUpdate ? console.log(errorUpdate.message) : ""}
+          {loading || loadingUpdate ? (
             <Loading />
           ) : (
             <FormExperience
               isEdit={true}
               role={data?.touchme_experiences_by_pk.role}
               employeer={data?.touchme_experiences_by_pk.employeer}
-              periodStart={data?.touchme_experiences_by_pk.periodStart}
-              periodEnd={data?.touchme_experiences_by_pk.periodEnd}
-              isNow={
-                data?.touchme_experiences_by_pk.periodEnd == null ? true : false
-              }
+              periodStart={data?.touchme_experiences_by_pk.period_start}
+              periodEnd={data?.touchme_experiences_by_pk.period_end}
+              func={handleUpdate}
               desc={data?.touchme_experiences_by_pk.desc}
             />
+            // console.log(
+            //   data?.touchme_experiences_by_pk.periodEnd,
+            //   typeof data?.touchme_experiences_by_pk.periodEnd === "undefined"
+            // )
           )}
         </div>
       </div>
