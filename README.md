@@ -40,6 +40,7 @@
 1. Clone this repository first
 2. Do `yarn` or `npm install`
 3. Run with `yarn dev` or `npm dev`
+4. Happy hacking!
 
 # Thanks to :
 - Alterra Academy
