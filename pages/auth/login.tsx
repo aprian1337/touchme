@@ -1,4 +1,58 @@
-export default function login() {
+import { useLazyQuery } from "@apollo/client";
+import Router from "next/router";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import AlertError from "../../components/AlertError";
+import Loading from "../../components/Loading";
+import { QUERY_GET_USER_FOR_LOGIN } from "../../graphql/queries";
+import { AuthCheckAuthenticated, AuthLogin } from "../../utils/Auth";
+
+export default function Login() {
+  const [getUser, { data, loading, error }] = useLazyQuery(
+    QUERY_GET_USER_FOR_LOGIN
+  );
+  const [signIn, setSignIn] = useState({
+    username: "",
+    password: "",
+    error: false,
+  });
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleChange = (e: any) => {
+    setSignIn({
+      ...signIn,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    getUser({
+      variables: {
+        username: {
+          _eq: signIn.username,
+        },
+        password: {
+          _eq: signIn.password,
+        },
+      },
+    });
+    if (data?.touchme_users.length > 0) {
+      AuthLogin(setCookie, signIn.username);
+      Router.push("/admin/experiences");
+    } else {
+      setSignIn({
+        username: "",
+        password: "",
+        error: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    AuthCheckAuthenticated(cookie);
+  }, []);
+
   return (
     <div
       style={{
@@ -8,8 +62,12 @@ export default function login() {
         height: "100vh",
       }}
     >
+      {loading ? <Loading /> : ""}
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8">
         <div className="rounded-lg bg-white p-12">
+          <div className={signIn.error ? "" : "hidden"}>
+            <AlertError error="Masih gagal nih :(" />
+          </div>
           <div className="max-w-md w-full">
             <div>
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -26,6 +84,8 @@ export default function login() {
                     id="username"
                     name="username"
                     type="username"
+                    value={signIn.username}
+                    onChange={handleChange}
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Username"
@@ -37,6 +97,8 @@ export default function login() {
                     id="password"
                     name="password"
                     type="password"
+                    value={signIn.password}
+                    onChange={handleChange}
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Password"
@@ -48,6 +110,7 @@ export default function login() {
                 <button
                   type="submit"
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  onClick={handleSubmit}
                 >
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg
