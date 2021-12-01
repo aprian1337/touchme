@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<br />
+<p align="center">
+  <a href="https://github.com/aprian1337/touchme">
+    <img src="/assets/logo.png" alt="Logo" width="70%" height="auto">
+  </a>
+  
+  <h3 align="center">Touchme.</h3>
 
-## Getting Started
+  <p align="center">
+    Touchme is a platform for work experience management that can display a personal page with a modern and minimalist design. Touchme has dynamic data that is fetched and connected to Hasura for GraphQL integration and also uses NextJs to support React based development frameworks
+    <br />
+    <a href="https://github.com/aprian1337/thukul-service"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="#!">View Demo</a>
+    ·
+    <a href="https://github.com/aprian1337/touchme/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/aprian1337/touchme/issues">Request Feature</a>
+  </p>
+</p>
 
-First, run the development server:
+# Contents :
+- [Libraries What I Used](#libraries-what-i-used)
+- [How to Run?](#how-to-run-locally)
+- [Thanks to](#thanks-to-)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Libraries What I Used
+1. NextJS
+2. Hasura
+3. GraphQL
+4. Netlify
+5. React-Cookie
+6. Tailwind CSS
+7. Fontawesome
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+# How to Run Locally?
+1. Clone this repository first
+2. Do `yarn` or `npm install`
+3. Run with `yarn dev` or `npm dev`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Thanks to :
+- Alterra Academy
+- Kak Nada Yasinta
