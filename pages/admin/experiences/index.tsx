@@ -8,6 +8,8 @@ import Loading from "../../../components/Loading";
 import { useEffect } from "react";
 import { AuthCheckLogin, AuthLogout } from "../../../utils/Auth";
 import { useCookies } from "react-cookie";
+import Authenticated from "../../../components/Authenticated";
+import Head from "next/head";
 
 export default function AdminExperiences() {
   const { loading, error, data, refetch } = useQuery(QUERY_GET_DATA, {
@@ -37,35 +39,36 @@ export default function AdminExperiences() {
   };
 
   useEffect(() => {
-    AuthCheckLogin(cookie);
     refetch();
   }, []);
 
   return (
-    <div>
-      <Navbar handleLogout={handleLogout} />
-      <Container>
-        <div className="flex justify-end">
-          <div className="inline-block">
-            <h1 className="text-white bg-red-500 float-right">
-              ./root/Work Experience
-            </h1>
-            <br />
-            <button className="mt-2 px-6 py-3 border border-black">
-              <Link href="/admin/experiences/create">
-                Create New Experience
-              </Link>
-            </button>
+    <Authenticated>
+      <div>
+        <Navbar handleLogout={handleLogout} />
+        <Container>
+          <div className="flex justify-end">
+            <div className="inline-block">
+              <h1 className="text-white bg-red-500 float-right">
+                ./root/Work Experience
+              </h1>
+              <br />
+              <button className="mt-2 px-6 py-3 border border-black">
+                <Link href="/admin/experiences/create">
+                  Create New Experience
+                </Link>
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="mt-10">
-          {loading || loadingDelete ? (
-            <Loading />
-          ) : (
-            <Table data={data} handleDelete={handleDeleteData} />
-          )}
-        </div>
-      </Container>
-    </div>
+          <div className="mt-10">
+            {loading || loadingDelete ? (
+              <Loading />
+            ) : (
+              <Table data={data} handleDelete={handleDeleteData} />
+            )}
+          </div>
+        </Container>
+      </div>
+    </Authenticated>
   );
 }
