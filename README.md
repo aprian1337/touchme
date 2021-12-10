@@ -9,7 +9,7 @@
   <p align="center">
     Touchme is a platform for work experience management that can display a personal page with a modern and minimalist design. Touchme has dynamic data that is fetched and connected to Hasura for GraphQL integration and also uses NextJs to support React based development frameworks
     <br />
-    <a href="https://github.com/aprian1337/thukul-service"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/aprian1337/touchme"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="#!">View Demo</a>
@@ -45,3 +45,4 @@
 # Thanks to :
 - Alterra Academy
 - Kak Nada Yasinta
+- Kampus Merdeka
